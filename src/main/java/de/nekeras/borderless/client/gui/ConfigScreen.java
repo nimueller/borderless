@@ -55,15 +55,15 @@ public class ConfigScreen extends Screen {
         Minecraft minecraft = Minecraft.getInstance();
         int x = getHorizontalLayoutStart(width);
 
-        enabledButton = ConfigScreenOption.enabled.createButton(minecraft.options, x, LINE_HEIGHT * 2, LAYOUT_MAX_WIDTH);
-        fullscreenModeButton = ConfigScreenOption.fullscreenMode.createButton(minecraft.options, x, LINE_HEIGHT * 3, LAYOUT_MAX_WIDTH);
-        focusLossButton = ConfigScreenOption.focusLoss.createButton(minecraft.options, x, LINE_HEIGHT * 4, LAYOUT_MAX_WIDTH);
+        enabledButton = ConfigScreenOption.enabled.createButton(minecraft.options, x, LINE_HEIGHT, LAYOUT_MAX_WIDTH);
+        fullscreenModeButton = ConfigScreenOption.fullscreenMode.createButton(minecraft.options, x, LINE_HEIGHT * 2, LAYOUT_MAX_WIDTH);
+        focusLossButton = ConfigScreenOption.focusLoss.createButton(minecraft.options, x, LINE_HEIGHT * 3, LAYOUT_MAX_WIDTH);
 
         Button applyButton = Button.builder(applyText, btn -> {
             log.info("Apply button in Borderless Window Config Screen pressed");
             FullscreenDisplayModeHolder.setFullscreenDisplayModeFromConfig();
             onClose();
-        }).bounds(width / 2 - 125, height - 75, 100, 20).build();
+        }).bounds(width / 2 - 125, height - LINE_HEIGHT * 3, 100, 20).build();
 
         Button cancelButton = Button.builder(CommonComponents.GUI_CANCEL, btn -> {
             log.info("Cancel button in Borderless Window Config Screen pressed, resetting to {}, {}, {}",
@@ -72,7 +72,7 @@ public class ConfigScreen extends Screen {
             Config.GENERAL.fullscreenMode.set(initialFullscreenMode);
             Config.GENERAL.focusLoss.set(initialFocusLossMode);
             onClose();
-        }).bounds(width / 2 + 25, height - 75, 100, 20).build();
+        }).bounds(width / 2 + 25, height - LINE_HEIGHT * 3, 100, 20).build();
 
         addRenderableWidget(enabledButton);
         addRenderableWidget(fullscreenModeButton);
@@ -95,12 +95,11 @@ public class ConfigScreen extends Screen {
         Minecraft minecraft = Minecraft.getInstance();
 
         this.renderBackground(guiGraphics, mouseX, mouseY, frameTime);
+        super.render(guiGraphics, mouseX, mouseY, frameTime);
 
         renderTitle(guiGraphics, minecraft, width);
         renderDescription(guiGraphics, minecraft, width);
         renderChangedWarning(guiGraphics, minecraft, width, height);
-
-        super.render(guiGraphics, mouseX, mouseY, frameTime);
     }
 
     @Override
@@ -110,12 +109,12 @@ public class ConfigScreen extends Screen {
     }
 
     private void renderTitle(@Nonnull GuiGraphics guiGraphics, @Nonnull Minecraft minecraft, int width) {
-        guiGraphics.drawCenteredString(minecraft.font, title, width / 2, 20, WHITE);
+        guiGraphics.drawCenteredString(minecraft.font, title, width / 2, 10, WHITE);
     }
 
     private void renderDescription(@Nonnull GuiGraphics guiGraphics, @Nonnull Minecraft minecraft, int width) {
         int x = getHorizontalLayoutStart(width);
-        int y = LINE_HEIGHT * 5;
+        int y = LINE_HEIGHT * 4;
 
         if (Config.GENERAL.enabled.get()) {
             guiGraphics.drawWordWrap(minecraft.font, Component.translatable(getDescriptionKey()), x, y, LAYOUT_MAX_WIDTH, WHITE);
@@ -126,7 +125,7 @@ public class ConfigScreen extends Screen {
 
     private void renderChangedWarning(@Nonnull GuiGraphics guiGraphics, @Nonnull Minecraft minecraft, int width, int height) {
         int x = getHorizontalLayoutStart(width);
-        int y = height - 50;
+        int y = height - LINE_HEIGHT * 2;
 
         guiGraphics.drawWordWrap(minecraft.font, changedWarningText, x, y, LAYOUT_MAX_WIDTH, YELLOW);
     }
