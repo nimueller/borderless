@@ -19,14 +19,14 @@ jobs:
         id: read_release
         shell: bash
         run: |
-          file=$(echo build/lib/*.jar)
+          file=$(echo build/libs/*.jar)
           minecraft_version=$(echo $file | awk -F'-' '{print $2}')
           versions=$(cat RELEASE.md | head -1)
           notes=$(cat RELEASE.md | tail -n +2)
           echo "FILE=$file" >> $GITHUB_OUTPUT
           echo "MINECRAFT_VERSION=$minecraft_version" >> $GITHUB_OUTPUT
-          echo 'CURSEFORGE_VERSIONS=$versions' >> $GITHUB_OUTPUT
-          echo 'CHANGELOG=$notes' >> $GITHUB_OUTPUT
+          echo "CURSEFORGE_VERSIONS=$versions" >> $GITHUB_OUTPUT
+          echo "CHANGELOG=$notes" >> $GITHUB_OUTPUT
       - name: "Create GitHub Release"
         uses: svenstaro/upload-release-action@v2
         with:
