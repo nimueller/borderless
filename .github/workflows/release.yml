@@ -19,24 +19,29 @@ jobs:
         id: read_release
         shell: bash
         run: |
-          file=build/lib/*.jar
-          versions=$(cat RELEASE.txt | head -1)
-          notes=$(cat RELEASE.txt | tail -n +2)
+          file=$(echo build/lib/*.jar)
+          minecraft_version=$(echo $file | awk -F'-' '{print $2}')
+          versions=$(cat RELEASE.md | head -1)
+          notes=$(cat RELEASE.md | tail -n +2)
           echo "FILE=$file" >> $GITHUB_OUTPUT
-          echo 'RELEASE_VERSIONS=$versions' >> $GITHUB_OUTPUT
-          echo 'RELEASE_BODY=$notes' >> $GITHUB_OUTPUT
+          echo "MINECRAFT_VERSION=$minecraft_version" >> $GITHUB_OUTPUT
+          echo 'CURSEFORGE_VERSIONS=$versions' >> $GITHUB_OUTPUT
+          echo 'CHANGELOG=$notes' >> $GITHUB_OUTPUT
       - name: "Create GitHub Release"
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.read_release.outputs.FILE }}
           tag: ${{ github.ref }}
-          body: ${{ steps.read_release.outputs.RELEASE_BODY }}
+          body: ${{ steps.read_release.outputs.CHANGELOG }}
       - name: "Upload to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
           file_path: ${{ steps.read_release.outputs.FILE }}
           game_endpoint: "minecraft"
-          game_versions: "${{ steps.read_release.outputs.FILE }},Forge"
-          project_id: "0"
+          game_versions: "${{ steps.read_release.outputs.CURSEFORGE_VERSIONS }},Forge"
+          display_name: "Borderless Window ${{ steps.read_release.outputs.MINECRAFT_VERSION }}"
+          project_id: "378979"
+          changelog: ${{ steps.read_release.outputs.CHANGELOG }}
+          changelog_type: "markdown"
           token: ${{ secrets.CURSEFORGE_API_TOKEN }}
