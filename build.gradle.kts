@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.bsh.commands.dir
+
 val minecraftVersion: String by extra
 val modVersion: String by extra
 val forgeVersion: String by extra
@@ -10,21 +12,12 @@ plugins {
 group = "de.nekeras"
 version = "$minecraftVersion-$modVersion"
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    minecraft(group = "net.minecraftforge", name = "forge", version = "$minecraftVersion-$forgeVersion")
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 
 minecraft {
     mappings("official", minecraftVersion)
+    reobf = false
+    copyIdeResources = true
 
     val client by runs.creating {
         workingDirectory(project.file("run"))
@@ -49,6 +42,15 @@ minecraft {
     }
 }
 
+repositories {
+}
+
+dependencies {
+    minecraft(group = "net.minecraftforge", name = "forge", version = "$minecraftVersion-$forgeVersion")
+    implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
+}
+
+
 tasks.processResources {
     doFirst {
         sourceSets.main.get().output.resourcesDir?.let { delete(it.resolve("META-INF/mods.toml")) }
@@ -72,4 +74,10 @@ tasks.jar {
             "Implementation-Vendor" to "Nekeras"
         )
     }
+}
+
+sourceSets.forEach {
+    val dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.setResourcesDir(dir)
+    it.java.destinationDirectory = dir
 }

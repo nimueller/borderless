@@ -1,7 +1,8 @@
 modLoader = "javafml"
-loaderVersion = "[48,)"
+loaderVersion = "[50,)"
 license = "MIT License"
 issueTrackerURL = "https://github.com/Nekeras/borderless/issues"
+clientSideOnly = true
 
 [[mods]]
 modId = "borderlesswindow"
