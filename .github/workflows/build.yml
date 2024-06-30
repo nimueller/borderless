@@ -1,0 +1,21 @@
+name: Build
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@v4
+    - name: JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: temurin
+    - name: Build
+      run: ./gradlew build
+
