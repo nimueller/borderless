@@ -1,5 +1,3 @@
-import org.gradle.internal.impldep.bsh.commands.dir
-
 val minecraftVersion: String by extra
 val modVersion: String by extra
 val forgeVersion: String by extra

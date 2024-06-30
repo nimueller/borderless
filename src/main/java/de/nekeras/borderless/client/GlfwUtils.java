@@ -41,7 +41,7 @@ public final class GlfwUtils {
     }
 
     /**
-     * Tries to get the monitor for the window. If it could be found and is non-null, it will be returned. Otherwise an
+     * Tries to get the monitor for the window. If it could be found and is non-null, it will be returned. Otherwise, an
      * error is printed.
      *
      * @param window The window

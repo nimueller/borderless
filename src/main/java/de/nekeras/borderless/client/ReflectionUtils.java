@@ -32,7 +32,7 @@ public final class ReflectionUtils {
     /**
      * Makes a field of type <code>T</code> in object <code>thisRef</code> accessible through reflection.
      *
-     * @param inObject  The object to lookup for the field
+     * @param inClass  The object to lookup for the field
      * @param fieldType The field to access
      * @throws IllegalStateException If there is no such field of type <code>F</code>
      */
@@ -50,7 +50,7 @@ public final class ReflectionUtils {
     /**
      * Makes a field of type <code>T</code> in object <code>thisRef</code> accessible through reflection.
      *
-     * @param inObject        The object to lookup for the field
+     * @param inClass        The object to lookup for the field
      * @param fieldType       The field to access
      * @param defaultSupplier The supplier which is called in when retrieving the value if the field was not found
      */
@@ -73,12 +73,12 @@ public final class ReflectionUtils {
     }
 
     /**
-     * Updates the {@link IWindowEventListener} in the {@link Window} instance with a custom
+     * Updates the {@link WindowEventHandler} in the {@link Window} instance with a custom
      * window event listener.
      *
      * @param window         The window to update the listener for
      * @param updateSupplier A function that accepts the original value of the
-     *                       {@link IWindowEventListener} field in the {@link Window} instance
+     *                       {@link WindowEventHandler} field in the {@link Window} instance
      *                       and returns a new value that should be assigned
      */
     public static void updateWindowEventListener(@Nonnull Window window, @Nonnull Function<WindowEventHandler, WindowEventHandler> updateSupplier) {
@@ -88,7 +88,7 @@ public final class ReflectionUtils {
     }
 
     /**
-     * Retrieves the <code>optionsRowList</code> field in the {@link VideoSettingsScreen}, if available. If might become
+     * Retrieves the <code>optionsRowList</code> field in the {@link VideoSettingsScreen}, if available. It might become
      * unavailable due to OptiFine or some other mod replacing the original {@link VideoSettingsScreen}.
      *
      * @param screen The screen

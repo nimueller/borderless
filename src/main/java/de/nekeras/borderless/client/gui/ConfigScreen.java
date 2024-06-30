@@ -15,6 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -91,7 +92,7 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float frameTime) {
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float frameTime) {
         Minecraft minecraft = Minecraft.getInstance();
 
         this.renderBackground(guiGraphics, mouseX, mouseY, frameTime);

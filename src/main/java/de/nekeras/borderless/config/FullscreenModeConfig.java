@@ -1,6 +1,5 @@
 package de.nekeras.borderless.config;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.OptionEnum;
 
 import javax.annotation.Nonnull;
