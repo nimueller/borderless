@@ -1,0 +1,42 @@
+name: Release
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: temurin
+      - name: Build
+        run: ./gradlew build
+      - name: Read Release Notes
+        id: read_release
+        shell: bash
+        run: |
+          file=build/lib/*.jar
+          versions=$(cat RELEASE.txt | head -1)
+          notes=$(cat RELEASE.txt | tail -n +2)
+          echo "FILE=$file" >> $GITHUB_OUTPUT
+          echo 'RELEASE_VERSIONS=$versions' >> $GITHUB_OUTPUT
+          echo 'RELEASE_BODY=$notes' >> $GITHUB_OUTPUT
+      - name: "Create GitHub Release"
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.read_release.outputs.FILE }}
+          tag: ${{ github.ref }}
+          body: ${{ steps.read_release.outputs.RELEASE_BODY }}
+      - name: "Upload to CurseForge"
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          file_path: ${{ steps.read_release.outputs.FILE }}
+          game_endpoint: "minecraft"
+          game_versions: "${{ steps.read_release.outputs.FILE }},Forge"
+          project_id: "0"
+          token: ${{ secrets.CURSEFORGE_API_TOKEN }}
