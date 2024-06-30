@@ -38,7 +38,6 @@ public class BorderlessWindow {
         context.registerConfig(ModConfig.Type.CLIENT, Config.CONFIG_SPEC);
     }
 
-    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientSetup(@Nonnull FMLClientSetupEvent event) {
         log.info("Initializing from client context");

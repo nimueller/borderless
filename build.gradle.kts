@@ -65,11 +65,11 @@ tasks.jar {
     manifest {
         attributes(
             "Specification-Title" to project.name,
-            "Specification-Vendor" to "Nekeras",
+            "Specification-Vendor" to "nimueller",
             "Specification-Version" to project.version,
             "Implementation-Title" to project.name,
             "Implementation-Version" to project.version,
-            "Implementation-Vendor" to "Nekeras"
+            "Implementation-Vendor" to "nimueller"
         )
     }
 }
