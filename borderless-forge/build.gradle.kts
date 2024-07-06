@@ -37,6 +37,10 @@ minecraft {
 dependencies {
     minecraft(group = "net.minecraftforge", name = "forge", version = "$minecraftVersion-$forgeVersion")
     implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
+
+    implementation(project(":borderless-common"))
+    compileOnly("org.projectlombok:lombok:1.18.34")
+    annotationProcessor("org.projectlombok:lombok:1.18.34")
 }
 
 

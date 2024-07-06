@@ -1,6 +1,7 @@
-package de.nekeras.borderless.config;
+package de.nekeras.borderless.client.config;
 
-import de.nekeras.borderless.client.fullscreen.FullscreenDisplayMode;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
+import lombok.Getter;
 import net.minecraft.util.OptionEnum;
 
 import javax.annotation.Nonnull;
@@ -16,29 +17,30 @@ public enum FocusLossConfig implements OptionEnum {
      * top, depending on the operating system.
      */
     DO_NOTHING(0, "Doesn't do anything when focus on a fullscreen window is lost, the window may be "
-            + "always on top, depending on the operating system."),
+        + "always on top, depending on the operating system."),
 
     /**
      * Minimizes (iconify) the window when focus on a fullscreen window is lost, this is the default
      * Minecraft behaviour.
      */
     MINIMIZE(1,
-            "Minimizes (iconify) the window when focus on a fullscreen window is lost, this is the "
-                    + "default Minecraft behaviour."),
+        "Minimizes (iconify) the window when focus on a fullscreen window is lost, this is the "
+            + "default Minecraft behaviour."),
 
     /**
      * Switches to a windowed mode and leaves the fullscreen when focus on a fullscreen window is
      * lost.
      */
     SWITCH_TO_WINDOWED(2,
-            "Switches to a windowed mode and leaves the fullscreen when focus on a fullscreen window "
-                    + "is lost."),
+        "Switches to a windowed mode and leaves the fullscreen when focus on a fullscreen window "
+            + "is lost."),
 
     ;
 
     private static final String BASE_KEY = "borderless.config.focus_loss.%s";
 
     private final int id;
+    @Getter
     private final String comment;
     private final String translationKey;
 
@@ -46,15 +48,6 @@ public enum FocusLossConfig implements OptionEnum {
         this.id = id;
         this.comment = comment;
         this.translationKey = String.format(BASE_KEY, name().toLowerCase());
-    }
-
-    /**
-     * A description comment for this option.
-     *
-     * @return A comment
-     */
-    public String getComment() {
-        return comment;
     }
 
     @Override

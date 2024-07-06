@@ -1,13 +1,10 @@
-package de.nekeras.borderless.client;
+package de.nekeras.borderless.common.glfw;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.glfw.GLFW;
 
 /**
  * Supported window attributes that are used by Borderless Window for the fullscreen display modes.
  */
-@OnlyIn(Dist.CLIENT)
 public enum GlfwWindowAttribute {
 
     DECORATED(GLFW.GLFW_DECORATED, true),

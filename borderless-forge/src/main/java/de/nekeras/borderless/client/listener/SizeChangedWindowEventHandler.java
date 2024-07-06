@@ -1,7 +1,7 @@
 package de.nekeras.borderless.client.listener;
 
 import com.mojang.blaze3d.platform.WindowEventHandler;
-import de.nekeras.borderless.client.ReflectionUtils;
+import de.nekeras.borderless.common.reflection.ReflectionUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.slf4j.Logger;
@@ -25,7 +25,8 @@ public class SizeChangedWindowEventHandler implements WindowEventHandler {
 
     private boolean focused = false;
 
-    public SizeChangedWindowEventHandler(@Nullable WindowEventHandler defaultWindowEventListener, @Nonnull Runnable onDisplayResize) {
+    public SizeChangedWindowEventHandler(@Nullable WindowEventHandler defaultWindowEventListener,
+        @Nonnull Runnable onDisplayResize) {
         this.defaultWindowEventListener = defaultWindowEventListener;
         this.onDisplayResize = onDisplayResize;
     }
@@ -59,4 +60,5 @@ public class SizeChangedWindowEventHandler implements WindowEventHandler {
             defaultWindowEventListener.cursorEntered();
         }
     }
+
 }

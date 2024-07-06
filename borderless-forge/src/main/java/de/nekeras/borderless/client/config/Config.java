@@ -1,7 +1,7 @@
-package de.nekeras.borderless.config;
+package de.nekeras.borderless.client.config;
 
-import de.nekeras.borderless.client.DesktopEnvironment;
-import de.nekeras.borderless.client.fullscreen.FullscreenDisplayMode;
+import de.nekeras.borderless.common.DesktopEnvironment;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import javax.annotation.Nonnull;
@@ -70,16 +70,16 @@ public class Config {
             enabled = builder.define(ENABLED_PATH, true);
 
             fullscreenMode = builder
-                    .comment(Arrays.stream(FullscreenModeConfig.values())
-                            .map(mode -> String.format("%s - %s", mode.name(), mode.getComment()))
-                            .toArray(String[]::new))
-                    .defineEnum(FULLSCREEN_MODE_PATH, FullscreenModeConfig.BEST);
+                .comment(Arrays.stream(FullscreenModeConfig.values())
+                    .map(mode -> String.format("%s - %s", mode.name(), mode.getComment()))
+                    .toArray(String[]::new))
+                .defineEnum(FULLSCREEN_MODE_PATH, FullscreenModeConfig.BEST);
 
             focusLoss = builder
-                    .comment(Arrays.stream(FocusLossConfig.values())
-                            .map(mode -> String.format("%s - %s", mode.name(), mode.getComment()))
-                            .toArray(String[]::new))
-                    .defineEnum(FOCUS_LOSS_PATH, FocusLossConfig.MINIMIZE);
+                .comment(Arrays.stream(FocusLossConfig.values())
+                    .map(mode -> String.format("%s - %s", mode.name(), mode.getComment()))
+                    .toArray(String[]::new))
+                .defineEnum(FOCUS_LOSS_PATH, FocusLossConfig.MINIMIZE);
 
             builder.pop();
         }

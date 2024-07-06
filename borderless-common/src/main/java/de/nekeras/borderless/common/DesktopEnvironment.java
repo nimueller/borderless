@@ -1,11 +1,8 @@
-package de.nekeras.borderless.client;
+package de.nekeras.borderless.common;
 
-import de.nekeras.borderless.client.fullscreen.FullscreenDisplayMode;
-import de.nekeras.borderless.client.fullscreen.NativeFullscreenDisplay;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
+import de.nekeras.borderless.common.mode.NativeFullscreenDisplay;
+import lombok.extern.slf4j.Slf4j;
 import org.lwjgl.system.Platform;
 
 import javax.annotation.Nonnull;
@@ -13,7 +10,7 @@ import javax.annotation.Nonnull;
 /**
  * The desktop environment we are running on, retrievable by {@link #get()}.
  */
-@OnlyIn(Dist.CLIENT)
+@Slf4j
 public enum DesktopEnvironment {
 
     /**
@@ -41,7 +38,6 @@ public enum DesktopEnvironment {
     private static final String X11_NAME = "x11";
     private static final String WAYLAND_NAME = "wayland";
     private static final DesktopEnvironment CURRENT;
-    private static final Logger log = LogManager.getLogger();
 
     private final FullscreenDisplayMode bestFullscreenDisplayMode;
 

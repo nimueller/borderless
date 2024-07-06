@@ -1,11 +1,8 @@
-package de.nekeras.borderless.client;
+package de.nekeras.borderless.common.glfw;
 
-import com.mojang.blaze3d.platform.Monitor;
-import com.mojang.blaze3d.platform.Window;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import de.nekeras.borderless.common.spi.MinecraftMonitor;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
+import lombok.extern.slf4j.Slf4j;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nonnull;
@@ -14,10 +11,8 @@ import java.util.Optional;
 /**
  * Helper class for access for various GLFW functions with logging support.
  */
-@OnlyIn(Dist.CLIENT)
+@Slf4j
 public final class GlfwUtils {
-
-    private static final Logger log = LogManager.getLogger();
 
     private GlfwUtils() {
     }
@@ -29,11 +24,11 @@ public final class GlfwUtils {
      * @return The monitor's name
      */
     @Nonnull
-    public static String getMonitorName(@Nonnull Monitor monitor) {
-        String name = GLFW.glfwGetMonitorName(monitor.getMonitor());
+    public static String getMonitorName(@Nonnull MinecraftMonitor monitor) {
+        String name = GLFW.glfwGetMonitorName(monitor.getHandle());
 
         if (name == null) {
-            log.warn("Could not retrieve monitor name for {}", monitor.getMonitor());
+            log.warn("Could not retrieve monitor name for {}", monitor.getHandle());
             return "- ERROR -";
         } else {
             return name;
@@ -48,8 +43,8 @@ public final class GlfwUtils {
      * @return The monitor wrapped in an {@link Optional}.
      */
     @Nonnull
-    public static Optional<Monitor> tryGetMonitor(@Nonnull Window window) {
-        Monitor monitor = window.findBestMonitor();
+    public static Optional<MinecraftMonitor> tryGetMonitor(@Nonnull MinecraftWindow window) {
+        MinecraftMonitor monitor = window.findBestMonitor();
 
         if (monitor == null) {
             log.error("Window's current monitor could not be retrieved");
@@ -64,9 +59,9 @@ public final class GlfwUtils {
      * @param window    The window
      * @param attribute The attribute
      */
-    public static void enableWindowAttribute(@Nonnull Window window, @Nonnull GlfwWindowAttribute attribute) {
+    public static void enableWindowAttribute(@Nonnull MinecraftWindow window, @Nonnull GlfwWindowAttribute attribute) {
         log.info("Enable window attribute {}", attribute.name());
-        GLFW.glfwSetWindowAttrib(window.getWindow(), attribute.getBit(), GLFW.GLFW_TRUE);
+        GLFW.glfwSetWindowAttrib(window.getHandle(), attribute.getBit(), GLFW.GLFW_TRUE);
     }
 
     /**
@@ -75,9 +70,9 @@ public final class GlfwUtils {
      * @param window    The window
      * @param attribute The attribute
      */
-    public static void disableWindowAttribute(@Nonnull Window window, @Nonnull GlfwWindowAttribute attribute) {
+    public static void disableWindowAttribute(@Nonnull MinecraftWindow window, @Nonnull GlfwWindowAttribute attribute) {
         log.info("Disable window attribute {}", attribute.name());
-        GLFW.glfwSetWindowAttrib(window.getWindow(), attribute.getBit(), GLFW.GLFW_FALSE);
+        GLFW.glfwSetWindowAttrib(window.getHandle(), attribute.getBit(), GLFW.GLFW_FALSE);
     }
 
     /**
@@ -85,7 +80,7 @@ public final class GlfwUtils {
      *
      * @param window The window
      */
-    public static void applyDefaultWindowAttributes(@Nonnull Window window) {
+    public static void applyDefaultWindowAttributes(@Nonnull MinecraftWindow window) {
         log.info("Resetting window attributes");
 
         for (GlfwWindowAttribute attribute : GlfwWindowAttribute.values()) {
@@ -104,14 +99,14 @@ public final class GlfwUtils {
      *
      * @param window The window to check
      */
-    public static void checkInputMode(@Nonnull Window window) {
+    public static void checkInputMode(@Nonnull MinecraftWindow window) {
         log.info("Checking window input mode");
 
-        switch (GLFW.glfwGetInputMode(window.getWindow(), GLFW.GLFW_CURSOR)) {
+        switch (GLFW.glfwGetInputMode(window.getHandle(), GLFW.GLFW_CURSOR)) {
             case GLFW.GLFW_CURSOR_NORMAL -> log.info("Detected normal cursor mode");
             case GLFW.GLFW_CURSOR_HIDDEN -> {
                 log.info("Detected hidden cursor mode");
-                GLFW.glfwSetInputMode(window.getWindow(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
+                GLFW.glfwSetInputMode(window.getHandle(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
             }
             case GLFW.GLFW_CURSOR_DISABLED -> log.info("Detected disabled cursor mode");
             default -> log.info("Unknown cursor mode");
@@ -122,7 +117,7 @@ public final class GlfwUtils {
         double[] xPos = new double[1];
         double[] yPos = new double[1];
 
-        GLFW.glfwGetCursorPos(window.getWindow(), xPos, yPos);
+        GLFW.glfwGetCursorPos(window.getHandle(), xPos, yPos);
 
         int x = (int) Math.floor(xPos[0]);
         int y = (int) Math.floor(yPos[0]);
@@ -133,4 +128,5 @@ public final class GlfwUtils {
         log.info("Cursor is at {}x{} (inside window: {})", x, y, inside);
         log.info("Done checking cursor position");
     }
+
 }

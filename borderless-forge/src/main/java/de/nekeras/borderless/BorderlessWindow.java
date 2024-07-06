@@ -1,9 +1,8 @@
 package de.nekeras.borderless;
 
+import de.nekeras.borderless.client.config.Config;
 import de.nekeras.borderless.client.gui.ConfigScreen;
-import de.nekeras.borderless.config.Config;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -42,9 +41,10 @@ public class BorderlessWindow {
     public static void onClientSetup(@Nonnull FMLClientSetupEvent event) {
         log.info("Initializing from client context");
         ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->
-                new ConfigScreenHandler.ConfigScreenFactory((mc, modListScreen) -> new ConfigScreen(modListScreen)));
+            new ConfigScreenHandler.ConfigScreenFactory((mc, modListScreen) -> new ConfigScreen(modListScreen)));
 
         log.info("Enqueue initialization work to main thread");
-        event.enqueueWork(de.nekeras.borderless.client.FullscreenDisplayModeHolder::initMinecraft);
+        event.enqueueWork(de.nekeras.borderless.client.BorderlessWindowClient::initMinecraft);
     }
+
 }

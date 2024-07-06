@@ -1,25 +1,23 @@
-package de.nekeras.borderless.client.fullscreen;
+package de.nekeras.borderless.common.mode;
 
-import com.mojang.blaze3d.platform.Window;
-import de.nekeras.borderless.client.GlfwUtils;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import de.nekeras.borderless.common.glfw.GlfwUtils;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
 
 /**
- * A fullscreen mode that can be applied for the Minecraft {@link Window}. The {@link
- * #apply(Window)} method
- * will be called every time the window enters fullscreen, the {@link #reset(Window)} method
+ * A fullscreen mode that can be applied for the Minecraft {@link MinecraftWindow}. The {@link
+ * #apply(MinecraftWindow)} method
+ * will be called every time the window enters fullscreen, the {@link #reset(MinecraftWindow)} method
  * every time the window
  * leaves fullscreen.
  */
-@OnlyIn(Dist.CLIENT)
 public interface FullscreenDisplayMode {
 
     /**
      * Switches into a windowed mode and removes the borders of the window. After that, maximizes
-     * the window on the current monitor as returned by {@link Window#findBestMonitor()}.
+     * the window on the current monitor as returned by {@link MinecraftWindow#findBestMonitor()}.
      */
     FullscreenDisplayMode BORDERLESS = new BorderlessFullscreenDisplay();
 
@@ -45,17 +43,18 @@ public interface FullscreenDisplayMode {
      *
      * @param window The window
      */
-    default void apply(@Nonnull Window window) {
+    default void apply(@Nonnull MinecraftWindow window) {
         GlfwUtils.applyDefaultWindowAttributes(window);
     }
 
     /**
      * Resets this fullscreen mode on the supplied window, reverting any changes that were made in
-     * {@link #apply(Window)}.
+     * {@link #apply(MinecraftWindow)}.
      *
      * @param window The window
      */
-    default void reset(@Nonnull Window window) {
+    default void reset(@Nonnull MinecraftWindow window) {
         GlfwUtils.applyDefaultWindowAttributes(window);
     }
+
 }

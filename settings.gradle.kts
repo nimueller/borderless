@@ -14,3 +14,4 @@ pluginManagement {
 
 rootProject.name = "BorderlessWindow"
 include("borderless-forge")
+include("borderless-common")
