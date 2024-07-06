@@ -1,62 +1,67 @@
-val minecraftVersion: String by extra
-val forgeVersion: String by extra
+val modId: String by extra
+val neoForgeVersion: String by extra
+val neoForgeMappingsVersion: String by extra
 
 plugins {
     id("borderless.common")
-    alias(libs.plugins.forgegradle)
+    alias(libs.plugins.neoforge)
 }
 
-minecraft {
-    mappings("official", minecraftVersion)
-    reobf = false
-    copyIdeResources = true
+neoForge {
+    version = neoForgeVersion
 
-    val client by runs.creating {
-        workingDirectory(project.file("run"))
+    parchment {
+        mappingsVersion = neoForgeMappingsVersion
+        minecraftVersion = project.extra.get("minecraftVersion") as String
+    }
 
-        property("forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP")
-        property("forge.logging.console.level", "debug")
+    runs {
+        val client by runs.creating {
+            client()
+            systemProperty("neoforge.enabledGameTestNamespaces", modId)
+        }
 
-        val borderless by mods.creating {
-            source(sourceSets.main.get())
+        val server by runs.creating {
+            server()
+            programArgument("--nogui")
+            systemProperty("neoforge.enabledGameTestNamespaces", modId)
+        }
+
+        configureEach {
+            systemProperty("forge.logging.markers", "REGISTRIES")
+            logLevel = org.slf4j.event.Level.DEBUG
         }
     }
 
-    val server by runs.creating {
-        workingDirectory(project.file("run"))
-
-        property("forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP")
-        property("forge.logging.console.level", "debug")
-
-        val borderless by mods.creating {
-            source(sourceSets.main.get())
+    mods {
+        mods.create(modId) {
+            sourceSet(sourceSets.main.get())
+            dependency(project(":borderless-common"))
         }
     }
 }
 
 dependencies {
-    minecraft(group = "net.minecraftforge", name = "forge", version = "$minecraftVersion-$forgeVersion")
     implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
 
-    implementation(project(":borderless-common"))
+    api(project(":borderless-common"))
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 }
-
 
 tasks.processResources {
     doFirst {
         println("Trying to delete mods.toml")
         sourceSets.main.get().output.resourcesDir?.let {
-            delete(it.resolve("META-INF/mods.toml"))
+            delete(it.resolve("META-INF/neoforge.mods.toml"))
             println("Deleted")
         }
     }
 
     from(sourceSets.main.get().resources.srcDirs) {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        include("META-INF/mods.toml")
-        expand("version" to project.version, "modid" to project.extra.get("modId"))
+        include("META-INF/neoforge.mods.toml")
+        expand("version" to project.version, "modid" to modId)
         println("Expand version to ${project.version}")
     }
 }
