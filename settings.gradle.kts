@@ -3,14 +3,22 @@ pluginManagement {
         maven("https://maven.minecraftforge.net")
         gradlePluginPortal()
     }
-    resolutionStrategy {
-        eachPlugin {
-            when (requested.id.id) {
-                "net.minecraftforge.gradle" -> useModule("net.minecraftforge.gradle:ForgeGradle:6.0.+")
-            }
+}
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            plugin("forgegradle", "net.minecraftforge.gradle").version("6.0.+")
+
+            library("lombok", "org.projectlombok:lombok:1.18.+")
+            library("glfw", "org.lwjgl:lwjgl-glfw:3.3.3")
+            library("slf4j", "org.slf4j:log4j-over-slf4j:2.0.+")
+            library("findbugs", "com.google.code.findbugs:annotations:3.0.0")
         }
     }
 }
+
+
 
 rootProject.name = "BorderlessWindow"
 include("borderless-forge")
