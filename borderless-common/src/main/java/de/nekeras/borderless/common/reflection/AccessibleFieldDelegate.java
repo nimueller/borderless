@@ -1,4 +1,4 @@
-package de.nekeras.borderless.forge.common.reflection;
+package de.nekeras.borderless.common.reflection;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

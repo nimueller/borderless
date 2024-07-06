@@ -1,7 +1,7 @@
 package de.nekeras.borderless.neoforge.client.listener;
 
 import com.mojang.blaze3d.platform.WindowEventHandler;
-import de.nekeras.borderless.forge.common.reflection.ReflectionUtils;
+import de.nekeras.borderless.common.reflection.ReflectionUtils;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package de.nekeras.borderless.forge.client.config;
 
-import de.nekeras.borderless.forge.common.mode.FullscreenDisplayMode;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
 import lombok.Getter;
 import net.minecraft.util.OptionEnum;
 

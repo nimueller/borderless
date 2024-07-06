@@ -1,7 +1,7 @@
 package de.nekeras.borderless.forge.client.config;
 
-import de.nekeras.borderless.forge.common.DesktopEnvironment;
-import de.nekeras.borderless.forge.common.mode.FullscreenDisplayMode;
+import de.nekeras.borderless.common.DesktopEnvironment;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import javax.annotation.Nonnull;

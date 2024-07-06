@@ -1,7 +1,7 @@
-package de.nekeras.borderless.forge.common.glfw;
+package de.nekeras.borderless.common.glfw;
 
-import de.nekeras.borderless.forge.common.spi.MinecraftMonitor;
-import de.nekeras.borderless.forge.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.spi.MinecraftMonitor;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
 import lombok.extern.slf4j.Slf4j;
 import org.lwjgl.glfw.GLFW;
 

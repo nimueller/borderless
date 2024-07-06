@@ -1,4 +1,4 @@
-package de.nekeras.borderless.forge.common.reflection;
+package de.nekeras.borderless.common.reflection;
 
 import org.lwjgl.glfw.GLFWFramebufferSizeCallbackI;
 import org.lwjgl.glfw.GLFWWindowSizeCallbackI;

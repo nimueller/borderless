@@ -1,9 +1,9 @@
 package de.nekeras.borderless.neoforge.client;
 
 import com.mojang.blaze3d.platform.Window;
-import de.nekeras.borderless.forge.common.FullscreenDisplayModeHolder;
-import de.nekeras.borderless.forge.common.spi.ConfigProvider;
-import de.nekeras.borderless.forge.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.FullscreenDisplayModeHolder;
+import de.nekeras.borderless.common.spi.ConfigProvider;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
 import de.nekeras.borderless.neoforge.client.listener.SizeChangedWindowEventHandler;
 import de.nekeras.borderless.neoforge.client.provider.NeoForgeConfigProvider;
 import de.nekeras.borderless.neoforge.client.provider.NeoForgeWindow;

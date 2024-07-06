@@ -1,7 +1,7 @@
 package de.nekeras.borderless.neoforge.client.provider;
 
 import com.mojang.blaze3d.platform.VideoMode;
-import de.nekeras.borderless.forge.common.spi.MinecraftVideoMode;
+import de.nekeras.borderless.common.spi.MinecraftVideoMode;
 
 public record NeoForgeVideoMode(VideoMode videoMode) implements MinecraftVideoMode {
 

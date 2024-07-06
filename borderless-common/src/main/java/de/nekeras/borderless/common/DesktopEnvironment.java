@@ -1,7 +1,7 @@
-package de.nekeras.borderless.forge.common;
+package de.nekeras.borderless.common;
 
-import de.nekeras.borderless.forge.common.mode.FullscreenDisplayMode;
-import de.nekeras.borderless.forge.common.mode.NativeFullscreenDisplay;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
+import de.nekeras.borderless.common.mode.NativeFullscreenDisplay;
 import lombok.extern.slf4j.Slf4j;
 import org.lwjgl.system.Platform;
 

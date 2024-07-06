@@ -1,4 +1,4 @@
-package de.nekeras.borderless.forge.common.glfw;
+package de.nekeras.borderless.common.glfw;
 
 import org.lwjgl.glfw.GLFW;
 

@@ -1,6 +1,6 @@
-package de.nekeras.borderless.forge.common.mode;
+package de.nekeras.borderless.common.mode;
 
-import de.nekeras.borderless.forge.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
 
 /**
  * The native fullscreen mode, this fullscreen mode can be used to disable this mod, as this mode

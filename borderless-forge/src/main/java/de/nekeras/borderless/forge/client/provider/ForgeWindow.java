@@ -1,9 +1,9 @@
 package de.nekeras.borderless.forge.client.provider;
 
 import com.mojang.blaze3d.platform.Window;
-import de.nekeras.borderless.forge.common.spi.MinecraftMonitor;
-import de.nekeras.borderless.forge.common.spi.MinecraftVideoMode;
-import de.nekeras.borderless.forge.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.spi.MinecraftMonitor;
+import de.nekeras.borderless.common.spi.MinecraftVideoMode;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
 
 import java.util.Optional;
 

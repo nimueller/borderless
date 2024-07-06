@@ -1,8 +1,8 @@
-package de.nekeras.borderless.forge.common.mode;
+package de.nekeras.borderless.common.mode;
 
-import de.nekeras.borderless.forge.common.glfw.GlfwUtils;
-import de.nekeras.borderless.forge.common.glfw.GlfwWindowAttribute;
-import de.nekeras.borderless.forge.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.glfw.GlfwUtils;
+import de.nekeras.borderless.common.glfw.GlfwWindowAttribute;
 
 import javax.annotation.Nonnull;
 

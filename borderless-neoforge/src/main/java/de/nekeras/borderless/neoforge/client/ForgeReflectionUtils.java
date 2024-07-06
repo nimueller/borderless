@@ -2,8 +2,8 @@ package de.nekeras.borderless.neoforge.client;
 
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.platform.WindowEventHandler;
-import de.nekeras.borderless.forge.common.reflection.AccessibleFieldDelegate;
-import de.nekeras.borderless.forge.common.reflection.ReflectionUtils;
+import de.nekeras.borderless.common.reflection.AccessibleFieldDelegate;
+import de.nekeras.borderless.common.reflection.ReflectionUtils;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
 import net.neoforged.api.distmarker.Dist;

@@ -1,8 +1,8 @@
 package de.nekeras.borderless.neoforge.client.provider;
 
 import com.mojang.blaze3d.platform.Monitor;
-import de.nekeras.borderless.forge.common.spi.MinecraftMonitor;
-import de.nekeras.borderless.forge.common.spi.MinecraftVideoMode;
+import de.nekeras.borderless.common.spi.MinecraftMonitor;
+import de.nekeras.borderless.common.spi.MinecraftVideoMode;
 
 public record NeoForgeMonitor(Monitor monitor) implements MinecraftMonitor {
 

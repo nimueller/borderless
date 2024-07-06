@@ -1,9 +1,9 @@
-package de.nekeras.borderless.forge.common;
+package de.nekeras.borderless.common;
 
-import de.nekeras.borderless.forge.common.glfw.GlfwUtils;
-import de.nekeras.borderless.forge.common.mode.FullscreenDisplayMode;
-import de.nekeras.borderless.forge.common.spi.ConfigProvider;
-import de.nekeras.borderless.forge.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
+import de.nekeras.borderless.common.glfw.GlfwUtils;
+import de.nekeras.borderless.common.spi.ConfigProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

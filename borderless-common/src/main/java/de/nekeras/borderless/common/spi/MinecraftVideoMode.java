@@ -1,4 +1,4 @@
-package de.nekeras.borderless.forge.common.spi;
+package de.nekeras.borderless.common.spi;
 
 public interface MinecraftVideoMode {
 

@@ -1,5 +1,10 @@
 plugins {
     id("borderless.common")
+    application
+}
+
+application {
+    mainClass = "de.nekeras.borderless.common.Main"
 }
 
 dependencies {
