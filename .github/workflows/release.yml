@@ -19,11 +19,14 @@ jobs:
         id: read_release
         shell: bash
         run: |
-          file=$(echo build/libs/*.jar)
-          minecraft_version=$(echo $file | awk -F'-' '{print $2}')
+          forge_file=$(echo "borderless-forge/build/libs/*.jar")
+          neoforge_file=$(echo "borderless-neoforge/build/libs/*.jar")
+          minecraft_version=$(echo $forge_file | awk -F'-' '{print $2}')
           versions=$(cat RELEASE.md | head -1)
           notes=$(cat RELEASE.md | tail -n +2)
-          echo "FILE=$file" >> $GITHUB_OUTPUT
+          echo "FORGE_FILE=$forge_file" >> $GITHUB_OUTPUT
+          echo "NEOFORGE_FILE=$neoforce_file" >> $GITHUB_OUTPUT
+          echo "MINECRAFT_VERSION=$minecraft_version" >> $GITHUB_OUTPUT
           echo "MINECRAFT_VERSION=$minecraft_version" >> $GITHUB_OUTPUT
           echo "CURSEFORGE_VERSIONS=$versions" >> $GITHUB_OUTPUT
           echo "CHANGELOG=$notes" >> $GITHUB_OUTPUT
@@ -31,15 +34,27 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ steps.read_release.outputs.FILE }}
+          file: "**/build/libs/*forge*.jar"
+          file_glob: true
           tag: ${{ github.ref }}
           body: ${{ steps.read_release.outputs.CHANGELOG }}
-      - name: "Upload to CurseForge"
+      - name: "Upload Forge Mod to CurseForge"
         uses: itsmeow/curseforge-upload@v3
         with:
-          file_path: ${{ steps.read_release.outputs.FILE }}
+          file_path: ${{ steps.read_release.outputs.FORGE_FILE }}
           game_endpoint: "minecraft"
           game_versions: "${{ steps.read_release.outputs.CURSEFORGE_VERSIONS }},Forge"
+          display_name: "Borderless Window ${{ steps.read_release.outputs.MINECRAFT_VERSION }}"
+          project_id: "378979"
+          changelog: ${{ steps.read_release.outputs.CHANGELOG }}
+          changelog_type: "markdown"
+          token: ${{ secrets.CURSEFORGE_API_TOKEN }}
+      - name: "Upload NeoForge Mod to CurseForge"
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          file_path: ${{ steps.read_release.outputs.NEOFORGE_FILE }}
+          game_endpoint: "minecraft"
+          game_versions: "${{ steps.read_release.outputs.CURSEFORGE_VERSIONS }},NeoForge"
           display_name: "Borderless Window ${{ steps.read_release.outputs.MINECRAFT_VERSION }}"
           project_id: "378979"
           changelog: ${{ steps.read_release.outputs.CHANGELOG }}
