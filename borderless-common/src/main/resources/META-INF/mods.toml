@@ -1,7 +1,7 @@
 modLoader = "javafml"
-loaderVersion = "[51,)"
+loaderVersion = "[${loader_min_version},)"
 license = "MIT License"
-issueTrackerURL = "https://github.com/Nekeras/borderless/issues"
+issueTrackerURL = "https://github.com/nimueller/borderless/issues"
 clientSideOnly = true
 
 [[mods]]
@@ -10,7 +10,7 @@ version = "${version}"
 displayName = "Borderless Window"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/borderless"
 logoFile = "logo.png"
-authors = "Nekeras"
+authors = "nimueller"
 description = '''
 Replaces the standard Minecraft fullscreen with a borderless window.
 This allows to easily switch monitors when Minecraft is not focussed, without minimizing the game.

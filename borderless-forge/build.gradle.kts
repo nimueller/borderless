@@ -3,6 +3,7 @@ val forgeVersion: String by extra
 
 plugins {
     id("borderless.common")
+    id("borderless.implementation")
     alias(libs.plugins.forgegradle)
 }
 
@@ -38,44 +39,7 @@ dependencies {
     minecraft(group = "net.minecraftforge", name = "forge", version = "$minecraftVersion-$forgeVersion")
     implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
 
-    api(project(":borderless-common"))
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 }
 
-
-tasks.processResources {
-    doFirst {
-        println("Trying to delete mods.toml")
-        sourceSets.main.get().output.resourcesDir?.let {
-            delete(it.resolve("META-INF/mods.toml"))
-            println("Deleted")
-        }
-    }
-
-    from(sourceSets.main.get().resources.srcDirs) {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        include("META-INF/mods.toml")
-        expand("version" to project.version, "modid" to project.extra.get("modId"))
-        println("Expand version to ${project.version}")
-    }
-}
-
-tasks.jar {
-    manifest {
-        attributes(
-            "Specification-Title" to project.name,
-            "Specification-Vendor" to "nimueller",
-            "Specification-Version" to project.version,
-            "Implementation-Title" to project.name,
-            "Implementation-Version" to project.version,
-            "Implementation-Vendor" to "nimueller"
-        )
-    }
-}
-
-sourceSets.forEach {
-    val dir = layout.buildDirectory.dir("sourcesSets/$it.name")
-    it.output.setResourcesDir(dir)
-    it.java.destinationDirectory = dir
-}

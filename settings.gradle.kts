@@ -20,6 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BorderlessWindow"
-include("borderless-forge")
 include("borderless-common")
+include("borderless-forge")
 include("borderless-neoforge")
