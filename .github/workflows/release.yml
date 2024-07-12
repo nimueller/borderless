@@ -19,17 +19,18 @@ jobs:
         id: read_release
         shell: bash
         run: |
-          forge_file=$(echo "borderless-forge/build/libs/*.jar")
-          neoforge_file=$(echo "borderless-neoforge/build/libs/*.jar")
+          forge_file=$(echo "borderless-forge/build/libs/*-all.jar")
+          neoforge_file=$(echo "borderless-neoforge/build/libs/*-all.jar")
           minecraft_version=$(echo $forge_file | awk -F'-' '{print $2}')
           versions=$(cat RELEASE.md | head -1)
           notes=$(cat RELEASE.md | tail -n +2)
           echo "FORGE_FILE=$forge_file" >> $GITHUB_OUTPUT
-          echo "NEOFORGE_FILE=$neoforce_file" >> $GITHUB_OUTPUT
+          echo "NEOFORGE_FILE=$neoforge_file" >> $GITHUB_OUTPUT
           echo "MINECRAFT_VERSION=$minecraft_version" >> $GITHUB_OUTPUT
           echo "MINECRAFT_VERSION=$minecraft_version" >> $GITHUB_OUTPUT
           echo "CURSEFORGE_VERSIONS=$versions" >> $GITHUB_OUTPUT
           echo "CHANGELOG=$notes" >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
       - name: "Create GitHub Release"
         uses: svenstaro/upload-release-action@v2
         with:
