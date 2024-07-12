@@ -30,7 +30,7 @@ jobs:
           echo "MINECRAFT_VERSION=$minecraft_version" >> $GITHUB_OUTPUT
           echo "CURSEFORGE_VERSIONS=$versions" >> $GITHUB_OUTPUT
           echo "CHANGELOG=$notes" >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
       - name: "Create GitHub Release"
         uses: svenstaro/upload-release-action@v2
         with:
