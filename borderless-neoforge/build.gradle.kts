@@ -13,7 +13,7 @@ neoForge {
 
     parchment {
         mappingsVersion = neoForgeMappingsVersion
-        minecraftVersion = project.extra.get("minecraftVersion") as String
+        minecraftVersion = project.extra.get("minecraftParchmentVersion") as String
     }
 
     runs {

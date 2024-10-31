@@ -8,8 +8,8 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            plugin("forgegradle", "net.minecraftforge.gradle").version("6.0.+")
-            plugin("neoforge", "net.neoforged.moddev").version("0.1.+")
+            plugin("forgegradle", "net.minecraftforge.gradle").version("6.+")
+            plugin("neoforge", "net.neoforged.moddev").version("1.+")
 
             library("lombok", "org.projectlombok:lombok:1.18.+")
             library("glfw", "org.lwjgl:lwjgl-glfw:3.3.3")

@@ -1,3 +1,4 @@
+val minecraftParchmentVersion: String by extra
 val minecraftVersion: String by extra
 val forgeVersion: String by extra
 
@@ -8,7 +9,7 @@ plugins {
 }
 
 minecraft {
-    mappings("official", minecraftVersion)
+    mappings("official", minecraftParchmentVersion)
     reobf = false
     copyIdeResources = true
 
