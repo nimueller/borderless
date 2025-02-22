@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +33,7 @@ public class BorderlessWindow {
 
     public BorderlessWindow() {
         log.info("Creating mod instance");
-        ModLoadingContext context = ModLoadingContext.get();
+        ModLoadingContext context = FMLJavaModLoadingContext.get();
 
         log.info("Register client configuration");
         context.registerConfig(ModConfig.Type.CLIENT, Config.CONFIG_SPEC);
@@ -42,7 +43,7 @@ public class BorderlessWindow {
     public static void onClientSetup(@Nonnull FMLClientSetupEvent event) {
         log.info("Initializing from client context");
         ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->
-            new ConfigScreenHandler.ConfigScreenFactory((mc, modListScreen) -> new ConfigScreen(modListScreen)));
+                new ConfigScreenHandler.ConfigScreenFactory((mc, modListScreen) -> new ConfigScreen(modListScreen)));
 
         log.info("Enqueue initialization work to main thread");
         event.enqueueWork(BorderlessWindowClient::initMinecraft);

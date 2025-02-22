@@ -1,6 +1,7 @@
 pluginManagement {
     repositories {
         maven("https://maven.minecraftforge.net")
+        maven("https://maven.parchmentmc.org")
         gradlePluginPortal()
     }
 }
@@ -8,8 +9,9 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            plugin("forgegradle", "net.minecraftforge.gradle").version("6.+")
+            plugin("forgegradle", "net.minecraftforge.gradle").version("[6.0.24,6.2)")
             plugin("neoforge", "net.neoforged.moddev").version("1.+")
+            plugin("parchment", "org.parchmentmc.librarian.forgegradle").version("1.+")
 
             library("lombok", "org.projectlombok:lombok:1.18.+")
             library("glfw", "org.lwjgl:lwjgl-glfw:3.3.3")
@@ -20,6 +22,12 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "BorderlessWindow"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include("borderless-common")
 include("borderless-forge")
 include("borderless-neoforge")
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+}

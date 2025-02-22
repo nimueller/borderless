@@ -8,7 +8,7 @@ repositories {
     mavenCentral()
 }
 
-val commonImplementation by configurations.creating
+val commonImplementation: Configuration by configurations.creating
 
 configurations.implementation {
     extendsFrom(commonImplementation)
@@ -26,7 +26,7 @@ tasks.jar {
             "Specification-Version" to project.version,
             "Implementation-Title" to project.name,
             "Implementation-Version" to project.version,
-            "Implementation-Vendor" to "nimueller"
+            "Implementation-Vendor" to "nimueller",
         )
     }
 }
@@ -35,24 +35,7 @@ tasks.processResources {
     val commonResources = project(":borderless-common").tasks.processResources
 
     from(commonResources) {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        exclude("logo.png")
-
-        val loaderMinVersion = when (project.name) {
-            "borderless-forge" -> project.extra.get("forgeLoaderMinVersion")
-            "borderless-neoforge" -> project.extra.get("neoForgeLoaderMinVersion")
-            else -> error("Unknown module")
-        }
-
-        expand(
-            "loader_min_version" to loaderMinVersion,
-            "version" to project.version,
-            "modid" to project.extra.get("modId")
-        )
-    }
-
-    from(commonResources) {
-        include("logo.png")
+        include("**/*")
     }
 }
 

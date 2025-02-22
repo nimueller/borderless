@@ -1,6 +1,7 @@
 val modId: String by extra
 val neoForgeVersion: String by extra
-val neoForgeMappingsVersion: String by extra
+val parchmentMinecraftVersion: String by extra
+val parchmentMappingsVersion: String by extra
 
 plugins {
     id("borderless.common")
@@ -12,24 +13,23 @@ neoForge {
     version = neoForgeVersion
 
     parchment {
-        mappingsVersion = neoForgeMappingsVersion
-        minecraftVersion = project.extra.get("minecraftParchmentVersion") as String
+        minecraftVersion = parchmentMinecraftVersion
+        mappingsVersion = parchmentMappingsVersion
     }
 
     runs {
-        val client by runs.creating {
+        val client by creating {
             client()
-            systemProperty("neoforge.enabledGameTestNamespaces", modId)
         }
 
-        val server by runs.creating {
+        val server by creating {
             server()
             programArgument("--nogui")
-            systemProperty("neoforge.enabledGameTestNamespaces", modId)
         }
 
         configureEach {
             systemProperty("forge.logging.markers", "REGISTRIES")
+            systemProperty("neoforge.enabledGameTestNamespaces", modId)
             logLevel = org.slf4j.event.Level.DEBUG
         }
     }
