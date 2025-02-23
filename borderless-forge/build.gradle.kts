@@ -80,3 +80,10 @@ sourceSets.forEach {
     it.output.setResourcesDir(dir.get())
     it.java.destinationDirectory.set(dir.get())
 }
+
+idea {
+    module {
+        isDownloadSources = true
+        isDownloadJavadoc = true
+    }
+}

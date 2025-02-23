@@ -1,13 +1,16 @@
+val neoForgeLoaderMinVersion: String by extra
 val modId: String by extra
 val neoForgeVersion: String by extra
 val parchmentMinecraftVersion: String by extra
 val parchmentMappingsVersion: String by extra
 
 plugins {
-    id("borderless.common")
+    idea
     id("borderless.implementation")
     alias(libs.plugins.neoforge)
 }
+
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 
 neoForge {
     version = neoForgeVersion
@@ -37,7 +40,10 @@ neoForge {
     mods {
         mods.create(modId) {
             sourceSet(sourceSets.main.get())
-            dependency(project(":borderless-common"))
+            sourceSet(
+                projects.borderlessCommon.dependencyProject.sourceSets.main
+                    .get(),
+            )
         }
     }
 }
@@ -48,10 +54,20 @@ dependencies {
 }
 
 tasks.processResources {
-    doLast {
-        val metaInfFolder = layout.buildDirectory.dir("resources/main/META-INF/").get()
-        val oldFile = metaInfFolder.file("mods.toml")
-        val newFile = metaInfFolder.file("neoforge.mods.toml")
-        oldFile.asFile.renameTo(newFile.asFile)
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand(
+            "loader_min_version" to neoForgeLoaderMinVersion,
+            "version" to project.version,
+            "modid" to modId,
+        )
+    }
+}
+
+idea {
+    module {
+        isDownloadSources = true
+        isDownloadJavadoc = true
     }
 }

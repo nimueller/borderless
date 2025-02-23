@@ -1,10 +1,16 @@
 plugins {
-    id("borderless.common")
+    java
     application
 }
 
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+
 application {
     mainClass = "de.nekeras.borderless.common.Main"
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {

@@ -10,7 +10,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             plugin("forgegradle", "net.minecraftforge.gradle").version("[6.0.24,6.2)")
-            plugin("neoforge", "net.neoforged.moddev").version("1.+")
+            plugin("neoforge", "net.neoforged.moddev").version("2.0.+")
             plugin("parchment", "org.parchmentmc.librarian.forgegradle").version("1.+")
 
             library("lombok", "org.projectlombok:lombok:1.18.+")
