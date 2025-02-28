@@ -8,7 +8,7 @@ val modId: String by extra
 plugins {
     idea
     id("borderless.implementation")
-    alias(libs.plugins.forgegradle)
+    alias(libs.plugins.forge)
     alias(libs.plugins.parchment)
 }
 

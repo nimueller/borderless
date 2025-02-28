@@ -1,11 +1,19 @@
 [versions]
-guava = "30.1-jre"
-junit = "5.12.0"
+forge-gradle = "[6.0.24,6.2)"
+neoforge-gradle = "2.0.+"
+parchment = "1.+"
+lombok = "1.18.+"
+lwjgl = "3.3.+"
+slf4j = "2.0.+"
+findbugs = "3.0.+"
+
+[plugins]
+forge = { id = "net.minecraftforge.gradle", version.ref = "forge-gradle" }
+neoforge = { id = "net.neoforged.moddev", version.ref = "neoforge-gradle" }
+parchment = { id = "org.parchmentmc.librarian.forgegradle", version.ref = "parchment" }
 
 [libraries]
-guava = { group = "com.google.guava", name = "guava", version.ref = "guava" }
-junit = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
-junitEngine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
-
-[bundles]
-junit = ["junit", "junitEngine"]
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+findbugs = { module = "com.google.code.findbugs:jsr305", version.ref = "findbugs" }

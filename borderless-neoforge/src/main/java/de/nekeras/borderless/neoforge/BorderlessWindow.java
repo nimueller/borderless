@@ -31,6 +31,7 @@ public class BorderlessWindow {
 
     private static final Logger log = LogManager.getLogger();
 
+    @SuppressWarnings("java:S1118")
     public BorderlessWindow(ModContainer container) {
         log.info("Register client configuration");
         container.registerConfig(ModConfig.Type.CLIENT, Config.CONFIG_SPEC);
