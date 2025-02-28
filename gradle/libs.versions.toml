@@ -1,5 +1,5 @@
 [versions]
-guava = "30.1-jre"
+guava = "33.4.0-jre"
 junit = "5.12.0"
 
 [libraries]
