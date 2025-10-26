@@ -2,8 +2,6 @@ package de.nekeras.borderless.neoforge.client.listener;
 
 import com.mojang.blaze3d.platform.WindowEventHandler;
 import de.nekeras.borderless.common.reflection.ReflectionUtils;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +9,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A custom {@link WindowEventHandler} that will call all original methods of the supplied
- * default event listener. Also, this method will run a callback supplied in the constructor whenever the
- * window's size has changed (i.e., every time {@link #resizeDisplay()} is called by a non-GLFW callback).
+ * A custom {@link WindowEventHandler} that will call all original methods of the supplied default event listener. Also,
+ * this method will run a callback supplied in the constructor whenever the window's size has changed (i.e., every time
+ * {@link #resizeDisplay()} is called by a non-GLFW callback).
  */
-@OnlyIn(Dist.CLIENT)
 public class SizeChangedWindowEventHandler implements WindowEventHandler {
 
     private static final Logger log = LoggerFactory.getLogger(SizeChangedWindowEventHandler.class);

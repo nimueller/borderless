@@ -6,8 +6,6 @@ import de.nekeras.borderless.common.reflection.AccessibleFieldDelegate;
 import de.nekeras.borderless.common.reflection.ReflectionUtils;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;
@@ -15,7 +13,6 @@ import java.util.function.Function;
 /**
  * Minecraft native code reflection util for easier access of some fields and methods.
  */
-@OnlyIn(Dist.CLIENT)
 public final class ForgeReflectionUtils {
 
     private static final AccessibleFieldDelegate<Window, WindowEventHandler> windowEventListenerAccessor =
@@ -27,13 +24,11 @@ public final class ForgeReflectionUtils {
     }
 
     /**
-     * Updates the {@link WindowEventHandler} in the {@link Window} instance with a custom
-     * window event listener.
+     * Updates the {@link WindowEventHandler} in the {@link Window} instance with a custom window event listener.
      *
      * @param window         The window to update the listener for
-     * @param updateSupplier A function that accepts the original value of the
-     *                       {@link WindowEventHandler} field in the {@link Window} instance
-     *                       and returns a new value that should be assigned
+     * @param updateSupplier A function that accepts the original value of the {@link WindowEventHandler} field in the
+     *                       {@link Window} instance and returns a new value that should be assigned
      */
     public static void updateWindowEventListener(@Nonnull Window window,
         @Nonnull Function<WindowEventHandler, WindowEventHandler> updateSupplier) {

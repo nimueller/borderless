@@ -21,7 +21,7 @@ import java.util.function.Supplier;
  * The main Forge mod class.
  */
 @Mod(value = BorderlessWindow.MOD_ID, dist = Dist.CLIENT)
-@EventBusSubscriber(value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class BorderlessWindow {
 
     /**

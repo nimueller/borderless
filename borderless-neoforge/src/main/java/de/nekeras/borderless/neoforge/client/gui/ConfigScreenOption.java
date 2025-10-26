@@ -7,12 +7,9 @@ import de.nekeras.borderless.neoforge.client.config.FullscreenModeConfig;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.Arrays;
 
-@OnlyIn(Dist.CLIENT)
 public class ConfigScreenOption {
 
     private static final String ENABLED_KEY = "borderless.config.enabled";
