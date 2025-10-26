@@ -18,11 +18,11 @@ public final class ReflectionUtils {
     /**
      * Makes a field of type <code>T</code> in object <code>thisRef</code> accessible through reflection.
      *
-     * @param inClass  The object to lookup for the field
+     * @param inClass   The object to lookup for the field
      * @param fieldType The field to access
      * @throws IllegalStateException If there is no such field of type <code>F</code>
      */
-    @SuppressWarnings("SameParameterValue") // might be needed in future
+    @SuppressWarnings("SameParameterValue") // might be needed in the future
     @Nonnull
     public static <C, F> AccessibleFieldDelegate<C, F> makeFieldAccessible(@Nonnull Class<C> inClass,
         @Nonnull Class<F> fieldType) {
@@ -35,19 +35,41 @@ public final class ReflectionUtils {
     }
 
     /**
+     * Makes a field of type <code>F</code> in class <code>C</code> accessible through reflection by field name.
+     *
+     * @param inClass   The class to lookup for the field
+     * @param fieldName The name of the field to access
+     * @param fieldType The type of the field to access
+     * @param <C>       The type of the class containing the field
+     * @param <F>       The type of the field
+     * @return An {@link AccessibleFieldDelegate} for the specified field
+     * @throws IllegalStateException If there is no such field with the given name and type
+     */
+    @SuppressWarnings("SameParameterValue") // might be needed in the future
+    @Nonnull
+    public static <C, F> AccessibleFieldDelegate<C, F> makeFieldAccessible(@Nonnull Class<C> inClass,
+        @Nonnull String fieldName, @Nonnull Class<F> fieldType) {
+        try {
+            return new AccessibleFieldDelegate<>(inClass, fieldName);
+        } catch (NoSuchFieldException e) {
+            throw new IllegalStateException(String.format("Expected field '%s' of type %s in class %s",
+                fieldName, fieldType.getName(), inClass.getName()), e);
+        }
+    }
+
+    /**
      * Makes a field of type <code>T</code> in object <code>thisRef</code> accessible through reflection.
      *
-     * @param inClass        The object to lookup for the field
+     * @param inClass         The object to lookup for the field
      * @param fieldType       The field to access
      * @param defaultSupplier The supplier which is called in when retrieving the value if the field was not found
      */
-    @SuppressWarnings("SameParameterValue") // might be needed in future
+    @SuppressWarnings("SameParameterValue") // might be needed in the future
     @Nonnull
     public static <C, F> AccessibleFieldDelegate<C, F> tryMakeFieldAccessible(@Nonnull Class<C> inClass,
         @Nonnull Class<F> fieldType, @Nonnull Function<C, F> defaultSupplier) {
         return new AccessibleFieldDelegate<>(inClass, fieldType, defaultSupplier);
     }
-
 
     /**
      * Checks if this method was called by either the {@link GLFWFramebufferSizeCallbackI} or

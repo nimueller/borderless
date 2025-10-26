@@ -97,7 +97,6 @@ public class ConfigScreen extends Screen {
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float frameTime) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        this.renderBackground(guiGraphics, mouseX, mouseY, frameTime);
         super.render(guiGraphics, mouseX, mouseY, frameTime);
 
         renderTitle(guiGraphics, minecraft, width);

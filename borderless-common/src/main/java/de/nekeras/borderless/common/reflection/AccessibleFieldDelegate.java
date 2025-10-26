@@ -8,8 +8,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Makes a field of type <code>F</code> in object <code>thisRef</code> accessible through reflection.
- * It's value may be accessed using {@link #getValue(Object)} and {@link #setValue(Object, Object)}.
+ * Makes a field of type <code>F</code> in object <code>thisRef</code> accessible through reflection. It's value may be
+ * accessed using {@link #getValue(Object)} and {@link #setValue(Object, Object)}.
  *
  * @param <F> The type of the field to find in the object.
  * @see #AccessibleFieldDelegate(Class, Class)
@@ -42,6 +42,21 @@ public class AccessibleFieldDelegate<C, F> {
         } else {
             this.field = null;
             this.defaultSupplier = defaultSupplier;
+        }
+    }
+
+    public AccessibleFieldDelegate(@Nonnull Class<C> inClass, @Nonnull String fieldName)
+        throws NoSuchFieldException {
+        Optional<Field> field = Arrays.stream(inClass.getDeclaredFields())
+            .filter(f -> f.getName().equals(fieldName))
+            .findFirst();
+
+        if (field.isPresent()) {
+            field.get().setAccessible(true);
+            this.field = field.get();
+        } else {
+            throw new NoSuchFieldException(String.format("Failed to find field %s in type %s",
+                fieldName, inClass));
         }
     }
 
