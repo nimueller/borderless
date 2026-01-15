@@ -77,6 +77,7 @@ public final class ReflectionUtils {
      *
      * @return <code>true</code> if called by a GLFW callback, otherwise <code>false</code>
      */
+    @Deprecated
     public static boolean isCalledByGlfwCallback() {
         return Arrays.stream(Thread.currentThread().getStackTrace()).anyMatch(e ->
             e.getClassName().equals(GLFWFramebufferSizeCallbackI.class.getName())

@@ -1,6 +1,6 @@
-package de.nekeras.borderless.forge.client.mixins;
+package de.nekeras.borderless.neoforge.client.mixins;
 
-import de.nekeras.borderless.forge.client.BorderlessWindowClient;
+import de.nekeras.borderless.neoforge.client.BorderlessWindowClient;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;

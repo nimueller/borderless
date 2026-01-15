@@ -1,0 +1,13 @@
+{
+  "refmap": "mixins.borderlesswindow.refmap.json",
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.nekeras.borderless.neoforge.client.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "WindowEventHandlerMixins"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
