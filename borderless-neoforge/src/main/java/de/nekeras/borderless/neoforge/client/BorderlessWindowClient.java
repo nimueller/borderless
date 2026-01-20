@@ -19,20 +19,8 @@ public final class BorderlessWindowClient {
     @Getter
     private static final FullscreenDisplayModeHolder displayModeHolder = new FullscreenDisplayModeHolder(configProvider,
         window);
-    @Getter
-    private static boolean initialized = false;
 
     private BorderlessWindowClient() {
-    }
-
-    /**
-     * Initializes the Minecraft environment to make it compatible with this mod.
-     */
-    public static void initMinecraft() {
-        log.info("Overwrite finished");
-        displayModeHolder.setFullscreenDisplayModeFromConfig();
-
-        initialized = true;
     }
 
 }
