@@ -64,7 +64,7 @@ public class ConfigScreen extends Screen {
 
         Button applyButton = Button.builder(applyText, btn -> {
             log.info("Apply button in Borderless Window Config Screen pressed");
-            BorderlessWindowClient.getDisplayModeHolder().setFullscreenDisplayModeFromConfig();
+            BorderlessWindowClient.getInstance().getDisplayModeHolder().setFullscreenDisplayModeFromConfig();
             onClose();
         }).bounds(width / 2 - 125, height - LINE_HEIGHT * 3, 100, 20).build();
 

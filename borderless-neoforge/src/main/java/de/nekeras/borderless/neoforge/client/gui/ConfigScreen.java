@@ -4,6 +4,7 @@ import de.nekeras.borderless.neoforge.client.BorderlessWindowClient;
 import de.nekeras.borderless.neoforge.client.config.Config;
 import de.nekeras.borderless.neoforge.client.config.FocusLossConfig;
 import de.nekeras.borderless.neoforge.client.config.FullscreenModeConfig;
+import de.nekeras.borderless.neoforge.client.provider.NeoForgeWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -61,7 +62,8 @@ public class ConfigScreen extends Screen {
 
         Button applyButton = Button.builder(applyText, btn -> {
             log.info("Apply button in Borderless Window Config Screen pressed");
-            BorderlessWindowClient.getDisplayModeHolder().setFullscreenDisplayModeFromConfig();
+            var displayModeHolder = BorderlessWindowClient.getInstance().getDisplayModeHolder();
+            displayModeHolder.setFullscreenDisplayModeFromConfig(new NeoForgeWindow(minecraft.getWindow()));
             onClose();
         }).bounds(width / 2 - 125, height - LINE_HEIGHT * 3, 100, 20).build();
 
