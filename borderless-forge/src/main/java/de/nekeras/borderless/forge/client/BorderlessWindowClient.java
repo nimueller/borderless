@@ -3,8 +3,10 @@ package de.nekeras.borderless.forge.client;
 import de.nekeras.borderless.common.FullscreenDisplayModeHolder;
 import de.nekeras.borderless.common.spi.ConfigProvider;
 import de.nekeras.borderless.forge.client.provider.ForgeConfigProvider;
+import de.nekeras.borderless.forge.client.provider.ForgeWindow;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -18,8 +20,16 @@ public final class BorderlessWindowClient {
     private final ConfigProvider configProvider = new ForgeConfigProvider();
     @Getter
     private final FullscreenDisplayModeHolder displayModeHolder = new FullscreenDisplayModeHolder(configProvider);
+    @Getter
+    private boolean initialized = false;
 
     private BorderlessWindowClient() {
+    }
+
+    public void initMinecraft() {
+        var window = Minecraft.getInstance().getWindow();
+        displayModeHolder.setFullscreenDisplayModeFromConfig(new ForgeWindow(window));
+        initialized = true;
     }
 
 }

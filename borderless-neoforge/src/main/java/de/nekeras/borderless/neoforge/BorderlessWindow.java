@@ -4,7 +4,6 @@ import de.nekeras.borderless.neoforge.client.BorderlessConfigScreenFactory;
 import de.nekeras.borderless.neoforge.client.config.Config;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -17,7 +16,6 @@ import java.util.function.Supplier;
  * The main Forge mod class.
  */
 @Mod(value = BorderlessWindow.MOD_ID, dist = Dist.CLIENT)
-@EventBusSubscriber(value = Dist.CLIENT)
 public class BorderlessWindow {
 
     /**

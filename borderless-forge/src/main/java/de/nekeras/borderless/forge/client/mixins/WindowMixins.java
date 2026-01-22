@@ -18,7 +18,14 @@ public class WindowMixins {
     @Inject(method = "setMode", at = @At("TAIL"))
     private void setMode(CallbackInfo info) {
         Window window = thisRef(this);
-        var displayModeHolder = BorderlessWindowClient.getInstance().getDisplayModeHolder();
+        var borderlessWindowClient = BorderlessWindowClient.getInstance();
+
+        if (!borderlessWindowClient.isInitialized()) {
+            // Client is not initialized yet, wait until it is
+            return;
+        }
+
+        var displayModeHolder = borderlessWindowClient.getDisplayModeHolder();
         displayModeHolder.setFullscreenDisplayModeFromConfig(new ForgeWindow(window));
     }
 
