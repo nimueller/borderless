@@ -4,6 +4,7 @@ import de.nekeras.borderless.forge.client.BorderlessWindowClient;
 import de.nekeras.borderless.forge.client.config.Config;
 import de.nekeras.borderless.forge.client.config.FocusLossConfig;
 import de.nekeras.borderless.forge.client.config.FullscreenModeConfig;
+import de.nekeras.borderless.forge.client.provider.ForgeWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -58,19 +59,20 @@ public class ConfigScreen extends Screen {
 
         enabledButton = ConfigScreenOption.enabled.createButton(minecraft.options, x, LINE_HEIGHT, LAYOUT_MAX_WIDTH);
         fullscreenModeButton = ConfigScreenOption.fullscreenMode.createButton(minecraft.options, x, LINE_HEIGHT * 2,
-            LAYOUT_MAX_WIDTH);
+                LAYOUT_MAX_WIDTH);
         focusLossButton = ConfigScreenOption.focusLoss.createButton(minecraft.options, x, LINE_HEIGHT * 3,
-            LAYOUT_MAX_WIDTH);
+                LAYOUT_MAX_WIDTH);
 
         Button applyButton = Button.builder(applyText, btn -> {
             log.info("Apply button in Borderless Window Config Screen pressed");
-            BorderlessWindowClient.getInstance().getDisplayModeHolder().setFullscreenDisplayModeFromConfig();
+            var displayModeHolder = BorderlessWindowClient.getInstance().getDisplayModeHolder();
+            displayModeHolder.setFullscreenDisplayModeFromConfig(new ForgeWindow(minecraft.getWindow()));
             onClose();
         }).bounds(width / 2 - 125, height - LINE_HEIGHT * 3, 100, 20).build();
 
         Button cancelButton = Button.builder(CommonComponents.GUI_CANCEL, btn -> {
             log.info("Cancel button in Borderless Window Config Screen pressed, resetting to {}, {}, {}",
-                initialEnabledState, initialFullscreenMode, initialFocusLossMode);
+                    initialEnabledState, initialFullscreenMode, initialFocusLossMode);
             Config.GENERAL.enabled.set(initialEnabledState);
             Config.GENERAL.fullscreenMode.set(initialFullscreenMode);
             Config.GENERAL.focusLoss.set(initialFocusLossMode);
@@ -120,14 +122,14 @@ public class ConfigScreen extends Screen {
 
         if (Config.GENERAL.enabled.get()) {
             guiGraphics.drawWordWrap(minecraft.font, Component.translatable(getDescriptionKey()), x, y,
-                LAYOUT_MAX_WIDTH, WHITE);
+                    LAYOUT_MAX_WIDTH, WHITE);
         } else {
             guiGraphics.drawWordWrap(minecraft.font, disabledText, x, y, LAYOUT_MAX_WIDTH, RED);
         }
     }
 
     private void renderChangedWarning(@Nonnull GuiGraphics guiGraphics, @Nonnull Minecraft minecraft, int width,
-        int height) {
+                                      int height) {
         int x = getHorizontalLayoutStart(width);
         int y = height - LINE_HEIGHT * 2;
 
