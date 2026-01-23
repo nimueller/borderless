@@ -1,5 +1,4 @@
 import org.spongepowered.asm.gradle.plugins.struct.DynamicProperties
-import java.util.Properties
 
 val forgeLoaderMinVersion: String by extra
 val parchmentMappingsVersion: String by extra
@@ -50,6 +49,8 @@ minecraft {
 dependencies {
     minecraft(group = "net.minecraftforge", name = "forge", version = "$minecraftVersion-$forgeVersion")
 
+    embed(projects.borderlessCommon)
+
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
     annotationProcessor(variantOf(libs.mixin) { classifier("processor") })
@@ -85,6 +86,7 @@ tasks.jar {
             "Implementation-Title" to project.name,
             "Implementation-Version" to project.version,
             "Implementation-Vendor" to "nimueller",
+            "MixinConfigs" to "mixins.$modId.json",
         )
     }
 }

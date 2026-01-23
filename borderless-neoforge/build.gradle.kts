@@ -49,6 +49,8 @@ neoForge {
 }
 
 dependencies {
+    embed(projects.borderlessCommon)
+
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 }

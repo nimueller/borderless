@@ -21,10 +21,11 @@ public class WindowMixins {
         var borderlessWindowClient = BorderlessWindowClient.getInstance();
 
         if (!borderlessWindowClient.isInitialized()) {
-            // Client is not initialized yet, wait until it is
+            log.info("Client is not initialized yet, waiting for initialization");
             return;
         }
 
+        log.info("Applying fullscreen mode from config");
         var displayModeHolder = borderlessWindowClient.getDisplayModeHolder();
         displayModeHolder.setFullscreenDisplayModeFromConfig(new ForgeWindow(window));
     }

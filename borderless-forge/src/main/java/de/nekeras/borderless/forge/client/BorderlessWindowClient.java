@@ -27,9 +27,16 @@ public final class BorderlessWindowClient {
     }
 
     public void initMinecraft() {
+        if (initialized) {
+            log.debug("Borderless Window already initialized");
+            return;
+        }
+
+        log.info("Initializing Borderless Window");
         var window = Minecraft.getInstance().getWindow();
         displayModeHolder.setFullscreenDisplayModeFromConfig(new ForgeWindow(window));
         initialized = true;
+        log.info("Borderless Window initialized");
     }
 
 }
