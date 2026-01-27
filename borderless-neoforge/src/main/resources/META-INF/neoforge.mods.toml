@@ -4,6 +4,9 @@ license = "MIT License"
 issueTrackerURL = "https://github.com/nimueller/borderless/issues"
 clientSideOnly = true
 
+[[mixins]]
+config = "mixins.${modid}.json"
+
 [[mods]]
 modId = "${modid}"
 version = "${version}"

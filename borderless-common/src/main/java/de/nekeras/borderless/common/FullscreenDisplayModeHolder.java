@@ -1,9 +1,10 @@
 package de.nekeras.borderless.common;
 
-import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
-import de.nekeras.borderless.common.spi.MinecraftWindow;
 import de.nekeras.borderless.common.glfw.GlfwUtils;
+import de.nekeras.borderless.common.mode.FullscreenDisplayMode;
 import de.nekeras.borderless.common.spi.ConfigProvider;
+import de.nekeras.borderless.common.spi.MinecraftWindow;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,16 +18,15 @@ import javax.annotation.Nullable;
 public class FullscreenDisplayModeHolder {
 
     private final ConfigProvider configProvider;
-    private final MinecraftWindow window;
     private FullscreenDisplayMode currentMode;
 
     /**
-     * The fullscreen mode that is applied instead of the native fullscreen once the user hits
-     * F11 or switches to fullscreen in the video settings.
+     * The fullscreen mode that is applied instead of the native fullscreen once the user hits F11 or switches to
+     * fullscreen in the video settings.
      *
      * @param newMode The fullscreen mode
      */
-    public void setFullscreenDisplayMode(@Nullable FullscreenDisplayMode newMode) {
+    public void setFullscreenDisplayMode(@NonNull MinecraftWindow window, @Nullable FullscreenDisplayMode newMode) {
         log.info("Detected fullscreen mode change from {} to {}", currentMode, newMode);
 
         if (currentMode != null) {
@@ -51,10 +51,10 @@ public class FullscreenDisplayModeHolder {
     /**
      * Re-applies the current fullscreen display mode set in the {@link ConfigProvider}.
      */
-    public void setFullscreenDisplayModeFromConfig() {
+    public void setFullscreenDisplayModeFromConfig(@NonNull MinecraftWindow window) {
         FullscreenDisplayMode configMode = configProvider.getFullscreenDisplayMode();
         log.info("Refreshing fullscreen mode from config to {}", configMode);
-        setFullscreenDisplayMode(configMode);
+        setFullscreenDisplayMode(window, configMode);
     }
 
 }

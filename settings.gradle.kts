@@ -2,7 +2,15 @@ pluginManagement {
     repositories {
         maven("https://maven.minecraftforge.net")
         maven("https://maven.parchmentmc.org")
+        maven("https://repo.spongepowered.org/repository/maven-public/")
         gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "org.spongepowered.mixin") {
+                useModule("org.spongepowered:mixingradle:${requested.version}")
+            }
+        }
     }
 }
 

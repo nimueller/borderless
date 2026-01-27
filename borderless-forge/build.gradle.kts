@@ -1,3 +1,5 @@
+import org.spongepowered.asm.gradle.plugins.struct.DynamicProperties
+
 val forgeLoaderMinVersion: String by extra
 val parchmentMappingsVersion: String by extra
 val parchmentMinecraftVersion: String by extra
@@ -10,6 +12,7 @@ plugins {
     id("borderless.implementation")
     alias(libs.plugins.forge)
     alias(libs.plugins.parchment)
+    alias(libs.plugins.mixin)
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
@@ -46,8 +49,20 @@ minecraft {
 dependencies {
     minecraft(group = "net.minecraftforge", name = "forge", version = "$minecraftVersion-$forgeVersion")
 
+    embed(projects.borderlessCommon)
+
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
+    annotationProcessor(variantOf(libs.mixin) { classifier("processor") })
+}
+
+mixin {
+    add(sourceSets.main.get(), "mixins.$modId.refmap.json")
+    config("mixins.$modId.json")
+
+    val debug = debug as DynamicProperties
+    debug.setProperty("verbose", true)
+    debug.setProperty("export", true)
 }
 
 tasks.processResources {
@@ -71,6 +86,7 @@ tasks.jar {
             "Implementation-Title" to project.name,
             "Implementation-Version" to project.version,
             "Implementation-Vendor" to "nimueller",
+            "MixinConfigs" to "mixins.$modId.json",
         )
     }
 }

@@ -8,14 +8,10 @@ repositories {
     mavenCentral()
 }
 
-val commonImplementation: Configuration by configurations.creating
+val embed: Configuration by configurations.creating
 
 configurations.implementation {
-    extendsFrom(commonImplementation)
-}
-
-dependencies {
-    commonImplementation(project(":borderless-common"))
+    extendsFrom(embed)
 }
 
 tasks.jar {
@@ -40,7 +36,7 @@ tasks.processResources {
 }
 
 tasks.shadowJar {
-    configurations = listOf(commonImplementation)
+    configurations = listOf(embed)
 }
 
 tasks.build {
