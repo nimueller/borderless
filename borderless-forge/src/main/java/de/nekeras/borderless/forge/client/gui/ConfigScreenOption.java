@@ -21,30 +21,30 @@ public class ConfigScreenOption {
     private static final Component enabledTooltip = Component.translatable("borderless.config.enabled.tooltip");
 
     public static final OptionInstance<Boolean> enabled = OptionInstance.createBoolean(
-        ENABLED_KEY,
-        value -> Tooltip.create(enabledTooltip),
-        Config.GENERAL.enabled.get(),
-        Config.GENERAL.enabled::set
+            ENABLED_KEY,
+            value -> Tooltip.create(enabledTooltip),
+            Config.GENERAL.enabled.get(),
+            Config.GENERAL.enabled::set
     );
 
     public static final OptionInstance<FullscreenModeConfig> fullscreenMode = new OptionInstance<>(
-        FULLSCREEN_MODE_KEY,
-        OptionInstance.noTooltip(),
-        OptionInstance.forOptionEnum(),
-        new OptionInstance.Enum<>(Arrays.asList(FullscreenModeConfig.values()),
-            Codec.STRING.xmap(FullscreenModeConfig::valueOf, Enum::name)),
-        Config.GENERAL.fullscreenMode.get(),
-        Config.GENERAL.fullscreenMode::set
+            FULLSCREEN_MODE_KEY,
+            OptionInstance.noTooltip(),
+            FullscreenModeConfig.VALUE_STRINGIFIER,
+            new OptionInstance.Enum<>(Arrays.asList(FullscreenModeConfig.values()),
+                    Codec.STRING.xmap(FullscreenModeConfig::valueOf, Enum::name)),
+            Config.GENERAL.fullscreenMode.get(),
+            Config.GENERAL.fullscreenMode::set
     );
 
     public static final OptionInstance<FocusLossConfig> focusLoss = new OptionInstance<>(
-        FOCUS_LOSS_KEY,
-        OptionInstance.noTooltip(),
-        OptionInstance.forOptionEnum(),
-        new OptionInstance.Enum<>(Arrays.asList(FocusLossConfig.values()),
-            Codec.STRING.xmap(FocusLossConfig::valueOf, Enum::name)),
-        Config.GENERAL.focusLoss.get(),
-        Config.GENERAL.focusLoss::set
+            FOCUS_LOSS_KEY,
+            OptionInstance.noTooltip(),
+            FocusLossConfig.VALUE_STRINGIFIER,
+            new OptionInstance.Enum<>(Arrays.asList(FocusLossConfig.values()),
+                    Codec.STRING.xmap(FocusLossConfig::valueOf, Enum::name)),
+            Config.GENERAL.focusLoss.get(),
+            Config.GENERAL.focusLoss::set
     );
 
 }

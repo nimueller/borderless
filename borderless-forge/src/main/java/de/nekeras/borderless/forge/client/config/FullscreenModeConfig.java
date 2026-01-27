@@ -1,64 +1,70 @@
 package de.nekeras.borderless.forge.client.config;
 
 import lombok.Getter;
-import net.minecraft.util.OptionEnum;
+import lombok.NonNull;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * An enum storing all supported fullscreen modes that can be configured in the {@link Config}.
  */
-public enum FullscreenModeConfig implements OptionEnum {
+public enum FullscreenModeConfig {
 
     /**
      * The best suitable fullscreen mode for the current operating system.
      */
-    BEST(0, "The best suitable fullscreen mode for the current operating system."),
+    BEST("The best suitable fullscreen mode for the current operating system."),
 
     /**
      * A borderless fullscreen which sets the width and height of the window to the monitor's video
      * mode and removing
      * window borders.
      */
-    BORDERLESS(1, "A borderless fullscreen which sets the width and height of the window to the "
-        + "monitor's video mode and removing window borders."),
+    BORDERLESS("A borderless fullscreen which sets the width and height of the window to the "
+            + "monitor's video mode and removing window borders."),
 
     /**
      * A native fullscreen which changes the monitor's window mode in order to apply the fullscreen.
-     * Focus loss behaviour can be manually configured using {@link FocusLossConfig}.
+     * Focus loss behavior can be manually configured using {@link FocusLossConfig}.
      */
-    NATIVE(2, "A native fullscreen which changes the monitor's window mode in order to apply the "
-        + "fullscreen. Focus loss behaviour can be manually configured using the 'focusLoss' "
-        + "option."),
+    NATIVE("A native fullscreen which changes the monitor's window mode in order to apply the "
+            + "fullscreen. Focus loss behaviour can be manually configured using the 'focusLoss' "
+            + "option."),
 
     ;
 
+    public static final OptionInstance.CaptionBasedToString<FullscreenModeConfig> VALUE_STRINGIFIER
+            = new ValueStringifier();
+
     private static final String BASE_KEY = "borderless.config.fullscreen_mode.%s";
 
-    private final int id;
     @Getter
     private final String comment;
     private final String translationKey;
 
-    FullscreenModeConfig(int id, @Nonnull String comment) {
-        this.id = id;
+    FullscreenModeConfig(@Nonnull String comment) {
         this.comment = comment;
         this.translationKey = String.format(BASE_KEY, name().toLowerCase());
     }
 
     @Override
-    public int getId() {
-        return id;
-    }
-
-    @Nonnull
-    @Override
-    public String getKey() {
-        return translationKey;
-    }
-
-    @Override
     public String toString() {
         return translationKey;
+    }
+
+    private static class ValueStringifier implements OptionInstance.CaptionBasedToString<FullscreenModeConfig> {
+
+        @NonNull
+        @Override
+        public Component toString(@NonNull Component pCaption, @Nullable FullscreenModeConfig pValue) {
+            if (pValue == null) {
+                return Component.empty();
+            }
+
+            return Component.translatable(pValue.translationKey);
+        }
     }
 }
