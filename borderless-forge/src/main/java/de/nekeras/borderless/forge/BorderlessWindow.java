@@ -3,8 +3,10 @@ package de.nekeras.borderless.forge;
 import de.nekeras.borderless.forge.client.config.Config;
 import de.nekeras.borderless.forge.client.gui.ConfigScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
@@ -28,15 +30,24 @@ public class BorderlessWindow {
         log.info("Register client configuration");
         context.registerConfig(ModConfig.Type.CLIENT, Config.CONFIG_SPEC);
 
+        FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(BorderlessWindow::onClientInit);
+
         if (FMLEnvironment.dist.isClient()) {
             log.info("We are on the client, doing some client specific stuff");
             log.info("Registering Borderless Window Config Screen");
             context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->
-                new ConfigScreenHandler.ConfigScreenFactory((mc, modListScreen) -> new ConfigScreen(modListScreen)));
+                    new ConfigScreenHandler.ConfigScreenFactory((mc, modListScreen) -> new ConfigScreen(modListScreen)));
+        }
+    }
 
+    @SubscribeEvent
+    public static void onClientInit(FMLClientSetupEvent event) {
+        log.debug("ClientSetupEvent received, enqueuing initialization work");
+
+        event.enqueueWork(() -> {
             log.info("Initializing Borderless Window Client");
             de.nekeras.borderless.forge.client.BorderlessWindowClient.getInstance().initMinecraft();
-        }
+        });
     }
 
 }
