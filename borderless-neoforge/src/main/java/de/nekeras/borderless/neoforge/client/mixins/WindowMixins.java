@@ -18,6 +18,13 @@ public class WindowMixins {
     @Inject(method = "setMode", at = @At("TAIL"))
     private void setMode(CallbackInfo info) {
         Window window = thisRef(this);
+        var borderlessWindowClient = BorderlessWindowClient.getInstance();
+
+        if (!borderlessWindowClient.isInitialized()) {
+            log.info("Client is not initialized yet, waiting for initialization");
+            return;
+        }
+
         var displayModeHolder = BorderlessWindowClient.getInstance().getDisplayModeHolder();
         displayModeHolder.setFullscreenDisplayModeFromConfig(new NeoForgeWindow(window));
     }
