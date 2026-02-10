@@ -3,7 +3,7 @@ package de.nekeras.borderless.forge;
 import de.nekeras.borderless.forge.client.config.Config;
 import de.nekeras.borderless.forge.client.gui.ConfigScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
-import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -30,7 +30,7 @@ public class BorderlessWindow {
         log.info("Register client configuration");
         context.registerConfig(ModConfig.Type.CLIENT, Config.CONFIG_SPEC);
 
-        FMLClientSetupEvent.getBus(context.getModBusGroup()).addListener(BorderlessWindow::onClientInit);
+        context.getModEventBus().addListener(BorderlessWindow::onClientInit);
 
         if (FMLEnvironment.dist.isClient()) {
             log.info("We are on the client, doing some client specific stuff");

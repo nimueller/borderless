@@ -11,7 +11,7 @@ public record ForgeWindow(Window window) implements MinecraftWindow {
 
     @Override
     public long getHandle() {
-        return window.handle();
+        return window.getWindow();
     }
 
     @Override
