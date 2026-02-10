@@ -11,7 +11,7 @@ public record NeoForgeWindow(Window window) implements MinecraftWindow {
 
     @Override
     public long getHandle() {
-        return window.getWindow();
+        return window.handle();
     }
 
     @Override
